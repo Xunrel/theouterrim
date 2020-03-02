@@ -159,6 +159,12 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: `gatsby-plugin-nprogress`,
+      options: {
+        color: `tomato`,
+      },
+    },
   ],
   siteMetadata: {
     title: `The Outer Rim`,
