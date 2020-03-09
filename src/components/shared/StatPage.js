@@ -5,13 +5,7 @@ import SEO from "./SEO"
 import Table from "./Table"
 import { ThemeProvider } from "./ThemeContext"
 
-export default function StatPage({
-  title,
-  columns,
-  data,
-  metadata,
-  noGrouping,
-}) {
+export default function StatPage({ title, columns, data, metadata, noGrouping }) {
   return (
     <ThemeProvider>
       <Dashboard>

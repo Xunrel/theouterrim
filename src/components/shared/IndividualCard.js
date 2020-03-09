@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   feedback: {
     fontSize: "0.8rem",
   },
-}))
+})
 
 function capitalize(s) {
   if (typeof s !== "string") return ""
@@ -121,9 +121,7 @@ function renderField({ key, item, classes }) {
     case "damage":
       return (
         <Typography key={key}>
-          <span className={classes.label}>Damage:</span>{" "}
-          {`${item.brawn ? "+" : ""}`}
-          {item[key]}
+          <span className={classes.label}>Damage:</span>{" "}{`${item.brawn ? "+" : ""}`}{item[key]}
         </Typography>
       )
     case "restricted":
@@ -157,7 +155,7 @@ ID: ${item.generatedId}`)
 
         <Card>
           <CardContent>
-            <Typography gutterBottom className={classes.label}>
+            <Typography gutterBottom className={classes.muted}>
               {resourceType}
               <CopyToClipboard>
                 {({ copy }) => (
@@ -177,11 +175,10 @@ ID: ${item.generatedId}`)
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <Link
           className={classes.feedback}
           component="a"
-          color="inherit"
           href={`mailto:${encodeURIComponent(
             "feedback@theouterrim.co"
           )}?subject=${encodeURIComponent(

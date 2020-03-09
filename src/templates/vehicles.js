@@ -39,10 +39,7 @@ export const query = graphql`
       passengers
       price
       rarity
-      hp
-      weapons
-      notes
-      restricted
+      generatedId
       index
       generatedId
     }

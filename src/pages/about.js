@@ -82,13 +82,22 @@ export default function AboutPage({ data }) {
             Can I help with some code?
           </Typography>
 
-          <Typography variant="body1" gutterBottom>
-            Absolutely! Check out the{" "}
-            <Link component="a" href="https://github.com/duffn/theouterrim">
-              repository on GitHub
-            </Link>
-            .
-          </Typography>
+        <Typography variant="h6" gutterBottom>
+          Why are some records missing data in some columns?
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          We are constantly adding new data and auditing existing data. If you
+          see a column that is empty for a particular record, it probably just
+          hasn't been updated yet! If it's been that way for awhile, then
+          something may indeed be wrong.{" "}
+          <Link
+            component="a"
+            href={`mailto:${encodeURIComponent("feedback@theouterrim.co")}`}
+          >
+            Reach out
+          </Link>{" "}
+          and let us know. Check back often for new and updated data.
+        </Typography>
 
           <Typography variant="h6" gutterBottom>
             Why are some records missing data in some columns?
@@ -119,13 +128,28 @@ export default function AboutPage({ data }) {
             upper-right hand corner of a table.
           </Typography>
 
-          <Typography variant="h6" gutterBottom>
-            How do I know which books have been entered and audited?
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            You can find a full list on the{" "}
-            <Link to="/content-status/">content status</Link> page.
-          </Typography>
+        <Typography variant="h6" gutterBottom>
+          I found a bug in the data!
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          Thanks for catching that! There is a link on each and every item
+          detail page that you can use to send us an email and let us know about
+          the issue.
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          I found a bug in the code!
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          Oops, sorry about that! If you could report it on the{" "}
+          <Link
+            component="a"
+            href="https://github.com/duffn/theouterrim/issues"
+          >
+            issues page
+          </Link>{" "}
+          and we'll take a look.
+        </Typography>
 
           <Typography variant="h6" gutterBottom>
             I found a bug in the data!

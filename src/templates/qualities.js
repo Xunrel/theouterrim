@@ -10,56 +10,56 @@ import { ThemeProvider } from "../components/shared/ThemeContext"
 
 export default ({ data, location }) => {
   return (
-    <ThemeProvider>
-      <Dashboard>
-        <IndividualCard
-          item={data.qualitiesYaml}
-          resourceType="Quality"
-          location={location}
-        />
-        <Grid container item xs={12}>
-          <WeaponsColumnProvider
-            metadata={data.allWeaponsYaml.edges
-              .map(({ node }) => node)
-              .reduce((acc, cur) => {
-                acc[cur.generatedId] = {
-                  isRestricted: cur.restricted,
-                  isBrawn: cur.brawn,
-                }
-                return acc
-              }, {})}
-          >
-            <Table
-              title="Weapons"
-              data={data.allWeaponsYaml.edges.map(({ node }) => {
-                return {
-                  ...node,
-                }
-              })}
-            />
-          </WeaponsColumnProvider>
-          <AdversariesWeaponsColumnProvider
-            metadata={data.allAdversariesWeaponsYaml.edges
-              .map(({ node }) => node)
-              .reduce((acc, cur) => {
-                acc[cur.generatedId] = {
-                  isBrawn: cur.brawn,
-                }
-                return acc
-              }, {})}
-          >
-            <Table
-              title="Adversaries Weapons"
-              data={data.allAdversariesWeaponsYaml.edges.map(({ node }) => {
-                return {
-                  ...node,
-                }
-              })}
-            />
-          </AdversariesWeaponsColumnProvider>
-        </Grid>
-      </Dashboard>
-    </ThemeProvider>
+    <Dashboard>
+      <IndividualCard
+        item={data.qualitiesYaml}
+        resourceType="Quality"
+        location={location}
+      />
+      <Grid container item xs={12}>
+        <WeaponsColumnProvider
+          metadata={data.allWeaponsYaml.edges
+            .map(({ node }) => node)
+            .reduce((acc, cur) => {
+              acc[cur.generatedId] = {
+                isRestricted: cur.restricted,
+                isBrawn: cur.brawn,
+              }
+              return acc
+            }, {})}
+        >
+          <Table
+            marginTop
+            title="Weapons"
+            data={data.allWeaponsYaml.edges.map(({ node }) => {
+              return {
+                ...node,
+              }
+            })}
+          />
+        </WeaponsColumnProvider>
+        <AdversariesWeaponsColumnProvider
+          metadata={data.allAdversariesWeaponsYaml.edges
+            .map(({ node }) => node)
+            .reduce((acc, cur) => {
+              acc[cur.generatedId] = {
+                isBrawn: cur.brawn,
+              }
+              return acc
+            }, {})}
+        >
+          <Table
+            marginTop
+            title="Adversaries Weapons"
+            data={data.allAdversariesWeaponsYaml.edges.map(({ node }) => {
+              return {
+                ...node,
+              }
+            })}
+          />
+        </AdversariesWeaponsColumnProvider>
+      </Grid>
+    </Dashboard>
   )
 }
 
