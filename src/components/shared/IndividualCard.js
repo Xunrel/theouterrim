@@ -1,5 +1,8 @@
 import React from "react"
+import clsx from "clsx"
+
 import { makeStyles } from "@material-ui/core/styles"
+
 import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
 import Grid from "@material-ui/core/Grid"
@@ -10,10 +13,9 @@ import Typography from "@material-ui/core/Typography"
 import CopyToClipboard from "./CopyToClipboard"
 import SEO from "./SEO"
 import ProvideBookData from "./BookDataProvider"
-import { indexRender } from "./ColumnHelper"
 import Link from "./Link"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   category: {
     marginTop: -12,
     marginBottom: 12,
@@ -26,7 +28,7 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
   label: {
-    color: "rgba(0, 0, 0, 0.54)",
+    color: theme.palette.text.secondary,
   },
   muted: {
     color: "rgb(210, 210, 210)",
@@ -34,10 +36,13 @@ const useStyles = makeStyles({
   link: {
     float: "right",
     cursor: "pointer",
-    color: "rgb(210, 210, 210)",
+    color: theme.palette.text.secondary,
     marginTop: "-10px",
   },
-})
+  feedback: {
+    fontSize: "0.8rem",
+  },
+}))
 
 function capitalize(s) {
   if (typeof s !== "string") return ""
@@ -68,21 +73,21 @@ function renderField({ key, item, classes }) {
           {item[key]}
         </Typography>
       )
-    // A silly case for HP, so both letters are capitalized.
+    // We want these labels capitalized.
     case "hp":
+    case "htt":
+    case "sst":
       return (
         <Typography key={key}>
-          <span className={classes.label}>HP:</span> {item[key]}
+          <span className={classes.label}>{key.toUpperCase()}:</span>{" "}
+          {item[key]}
         </Typography>
       )
     case "index":
       let bookData = ProvideBookData()
       let indices = item[key].split(",")
       return (
-        <Typography
-          key={key}
-          className={[classes.posTop, classes.muted].join(" ")}
-        >
+        <Typography key={key} className={clsx(classes.posTop, classes.label)}>
           Index:{" "}
           {indices.map((index, count) => {
             let idAndPage = index.split(":").map(s => s.trim())
@@ -113,9 +118,18 @@ function renderField({ key, item, classes }) {
           {`${item.restricted ? "(R) " : ""}${item[key].toLocaleString()}`}
         </Typography>
       )
+    case "damage":
+      return (
+        <Typography key={key}>
+          <span className={classes.label}>Damage:</span>{" "}
+          {`${item.brawn ? "+" : ""}`}
+          {item[key]}
+        </Typography>
+      )
     case "restricted":
+    case "brawn":
     case "generatedId":
-      return null //don't want to render this field as it's displayed with the price
+      return null //don't want to render these fields
     default:
       return (
         <Typography key={key}>
@@ -128,31 +142,55 @@ function renderField({ key, item, classes }) {
 export default ({ item, resourceType, location }) => {
   const classes = useStyles()
 
-  return (
-    <Grid container item xs={12}>
-      <SEO title={item.name} />
+  const emailBody = encodeURIComponent(`
 
-      <Card>
-        <CardContent>
-          <Typography gutterBottom className={classes.muted}>
-            {resourceType}
-            <CopyToClipboard>
-              {({ copy }) => (
-                <IconButton
-                  component="span"
-                  onClick={() => copy(location.href)}
-                  className={classes.link}
-                >
-                  <LinkOutlined fontSize="small" />
-                </IconButton>
-              )}
-            </CopyToClipboard>
-          </Typography>
-          {Object.keys(item).map(key => {
-            return renderField({ key, item, classes })
-          })}
-        </CardContent>
-      </Card>
-    </Grid>
+
+
+Thank you for reporting an issue! Please provide details above.
+Item: ${item.name} (${resourceType})
+ID: ${item.generatedId}`)
+
+  return (
+    <>
+      <Grid container item xs={12}>
+        <SEO title={item.name} />
+
+        <Card>
+          <CardContent>
+            <Typography gutterBottom className={classes.label}>
+              {resourceType}
+              <CopyToClipboard>
+                {({ copy }) => (
+                  <IconButton
+                    component="span"
+                    onClick={() => copy(location.href)}
+                    className={classes.link}
+                  >
+                    <LinkOutlined fontSize="small" />
+                  </IconButton>
+                )}
+              </CopyToClipboard>
+            </Typography>
+            {Object.keys(item).map(key => {
+              return renderField({ key, item, classes })
+            })}
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12}>
+        <Link
+          className={classes.feedback}
+          component="a"
+          color="inherit"
+          href={`mailto:${encodeURIComponent(
+            "feedback@theouterrim.co"
+          )}?subject=${encodeURIComponent(
+            `Feedback on ${item.name} (${resourceType})`
+          )}&body=${emailBody}`}
+        >
+          Found an error? Report it here.
+        </Link>
+      </Grid>
+    </>
   )
 }

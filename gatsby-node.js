@@ -30,6 +30,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       name: String!
       skill: String
       damage: Int
+      brawn: Boolean
       crit: String
       range: String
       special: String
@@ -74,6 +75,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       name: String!
       skill: String
       damage: String
+      brawn: Boolean
       crit: String
       range: String
       special: String
@@ -137,13 +139,20 @@ exports.createSchemaCustomization = ({ actions }) => {
       silhouette: Int
       speed: Int
       handling: Int
+      armor: Int
+      htt: Int
+      sst: Int
+      defense: String
+      sensors: String
       weapons: Int
       encumbrance: Int
       hp: Int
       price: Int
       restricted: Boolean
       rarity: Int
+      hyperdrive: String
       navicomputer: String
+      notes: String
       index: String
       generatedId: String!
     }
@@ -177,12 +186,18 @@ exports.createSchemaCustomization = ({ actions }) => {
       silhouette: Int
       speed: Int
       handling: Int
+      armor: Int
+      htt: Int
+      sst: Int
+      defense: String
+      sensors: String
       weapons: Int
       encumbrance: Int
       hp: Int
       price: Int
       restricted: Boolean
       rarity: Int
+      notes: String
       index: String
       generatedId: String!
     }
@@ -204,6 +219,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       category: String
       skill: String
       damage: Int
+      brawn: Boolean
       crit: String
       range: String
       encumbrance: Int
