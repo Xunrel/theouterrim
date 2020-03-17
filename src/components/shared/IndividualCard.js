@@ -77,10 +77,16 @@ function renderField({ key, item, classes }) {
     case "hp":
     case "htt":
     case "sst":
+    case "wt":
+    case "st":
+    case "xp":
       return (
         <Typography key={key}>
           <span className={classes.label}>{key.toUpperCase()}:</span>{" "}
-          {item[key]}
+          {(item[key] &&
+            item[key].toLocaleString &&
+            item[key].toLocaleString()) ||
+            item[key]}
         </Typography>
       )
     case "index":
@@ -105,23 +111,49 @@ function renderField({ key, item, classes }) {
           })}
         </Typography>
       )
+    case "mr":
+      return (
+        <Typography key={key}>
+          <span className={classes.label}>M/R:</span> {item[key]}
+        </Typography>
+      )
     case "forceSensitive":
       return (
         <Typography key={key}>
           <span className={classes.label}>Force Sensitive:</span> {item[key]}
         </Typography>
       )
+    case "specialAbilities":
+      return (
+        <Typography key={key}>
+          <span className={classes.label}>Special Abilities:</span> {item[key]}
+        </Typography>
+      )
+    case "additionalRules":
+      return (
+        <Typography key={key}>
+          <span className={classes.label}>Additional Rules:</span> {item[key]}
+        </Typography>
+      )
     case "price":
       return (
         <Typography key={key}>
           <span className={classes.label}>Price:</span>{" "}
-          {`${item.restricted ? "(R) " : ""}${item[key].toLocaleString()}`}
+          {`${item.restricted ? "(R) " : ""}${(item[key] &&
+            item[key].toLocaleString &&
+            item[key].toLocaleString()) ||
+            item[key]}`}
         </Typography>
       )
     case "damage":
       return (
         <Typography key={key}>
-          <span className={classes.label}>Damage:</span>{" "}{`${item.brawn ? "+" : ""}`}{item[key]}
+          <span className={classes.label}>Damage:</span>{" "}
+          {`${item.brawn ? "+" : ""}`}
+          {(item[key] &&
+            item[key].toLocaleString &&
+            item[key].toLocaleString()) ||
+            item[key]}
         </Typography>
       )
     case "restricted":
@@ -131,7 +163,11 @@ function renderField({ key, item, classes }) {
     default:
       return (
         <Typography key={key}>
-          <span className={classes.label}>{capitalize(key)}:</span> {item[key]}
+          <span className={classes.label}>{capitalize(key)}:</span>{" "}
+          {(item[key] &&
+            item[key].toLocaleString &&
+            item[key].toLocaleString()) ||
+            item[key]}
         </Typography>
       )
   }

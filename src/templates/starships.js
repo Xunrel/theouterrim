@@ -43,7 +43,9 @@ export const query = graphql`
       weapons
       hyperdrive
       navicomputer
-      generatedId
+      additionalRules
+      notes
+      restricted
       index
       generatedId
     }
